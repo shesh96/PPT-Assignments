@@ -1,0 +1,151 @@
+//Q1 
+//Input: nums = [1,4,3,2]
+//Output: 4
+
+int arrayPairSum(vector<int>& nums) {
+       sort(nums.begin(), nums.end());
+       int sum =0;
+       for(int i =0; i<nums.size(); i+=2){
+           sum += nums[i];
+       }
+       return sum;
+    }
+
+//Q 2
+//Input: candyType = [1,1,2,2,3,3]
+//Output: 3
+
+int distributeCandies(vector<int>& candyType) {
+        int size=candyType.size();
+        int can_eat=size/2;
+        
+        set<int>s;
+        for(int i=0;i<size;i++){
+            s.insert(candyType[i]);
+        }
+        
+        int set_size=s.size();
+        
+        if(can_eat==set_size)
+            return set_size;
+        
+        else if(can_eat>set_size)
+            return set_size;
+             
+        return can_eat;
+    }
+
+//Q 3
+//Input: nums = [1,3,2,2,5,2,3,7]
+//Output: 5
+
+int findLHS(vector<int>& nums) {
+        unordered_map<int, int> freq;
+        for (auto n : nums)
+            freq[n]++;
+        
+        int maxi = 0;
+        for (auto [num, f] : freq) {
+            if (freq.find(num+1) != freq.end())
+                maxi = max(maxi, f + freq[num+1]);
+        }
+        return maxi;
+    }
+
+//Q 4
+// Input: flowerbed = [1,0,0,0,1], n = 1
+//Output: true
+
+ bool canPlaceFlowers(vector<int>&flowerbed,int n) 
+    {
+        for(int i=0;i<flowerbed.size();i++)
+        {
+            if(flowerbed[i]==0)
+            {
+                if((i==0 || flowerbed[i-1]==0)&&(i==flowerbed.size()-1 || flowerbed[i+1]==0))
+                {
+                    n--;
+                    flowerbed[i]=1;
+                }
+            }
+        }
+        return (n<=0);
+    }
+
+//Q 5
+// nput: nums = [1,2,3]
+//Output: 6
+
+int maximumProduct(vector<int>& nums) {
+        int n= nums.size();
+        sort(nums.begin(),nums.end());
+        int ans1= nums[n-1]*nums[n-2]*nums[n-3];
+        int ans2= nums[0]*nums[1]*nums[n-1];
+        return max(ans1,ans2);
+    }
+//Q 6
+//Input: nums = [-1,0,3,5,9,12], target = 9
+//Output: 4
+
+int search(vector<int>& nums, int target) {
+        int low =0;
+        int high =nums.size()-1;
+        while(low<=high){
+            int mid = (low+high)/2;
+            if(nums[mid]==target){
+                return mid;
+            }
+            else if(nums[mid]<target){
+                low = mid+1;
+            }else{
+                high = mid-1;
+            }
+        }
+        return -1;
+    }
+
+//Q 7
+//Input: nums = [1,2,2,3]
+//Output: true
+
+ bool isMonotonic(vector<int>& nums) 
+    {
+      int n=nums.size();
+      if(n==0){return true;}
+      int i;
+        for(i =0;i<n-1;i++)
+            {
+                if(nums[i]>=nums[i+1])
+                continue;
+                else
+                break; 
+            }
+            if(i==n-1)return true;
+             for(i =0;i<n-1;i++)
+            {
+                if(nums[i]<=nums[i+1])
+                continue;
+                else
+                break;
+            }     if(i==n-1)return true;       
+    return false;
+    }
+
+//Q 8
+//Input: nums = [1], k = 0
+//Output: 0
+
+int smallestRangeI(vector<int>& nums, int k) {
+        int n = nums.size();
+        int maxx = nums[0], minn = nums[0];
+        
+        for (int i=0; i<n; i++) {
+            maxx = max(maxx, nums[i]);
+            minn = min(minn, nums[i]);
+        }
+
+        int diff = maxx - minn;
+
+        if (diff - k <= k) return 0;
+        return diff-k-k;
+    }
